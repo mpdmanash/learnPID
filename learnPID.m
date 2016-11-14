@@ -51,13 +51,13 @@ ylabel('Cost Jy');
 if size(theta_x,2 == 2)
     figure();
     subplot(1,2,1)
-    [theta1, theta2, costs] = displayThetaNeighbours(theta_x, X_for_x_axis, Y_for_x_axis, 100, 0.5, 100, 0.5);
+    [theta1, theta2, costs] = getCostOfThetaNeighbours(theta_x, X_for_x_axis, Y_for_x_axis, 100, 0.5, 100, 0.5);
     contourf(theta1, theta2, costs);
     xlabel('theta1x');
     ylabel('theta2x');
 
     subplot(1,2,2)
-    [theta1, theta2, costs] = displayThetaNeighbours(theta_y, X_for_y_axis, Y_for_y_axis, 100, 0.5, 100, 0.5);
+    [theta1, theta2, costs] = getCostOfThetaNeighbours(theta_y, X_for_y_axis, Y_for_y_axis, 100, 0.5, 100, 0.5);
     contourf(theta1, theta2, costs);
     xlabel('theta1y');
     ylabel('theta2y');
