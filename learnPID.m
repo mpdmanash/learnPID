@@ -23,16 +23,17 @@ X_for_y_axis(:,[2]) = [];
 fprintf('Data loaded \n');
 
 % Learning Parameters
-alpha = 0.03;
-num_iters = 1000;
-%size(X_for_y_axis,2)
+alpha_x = 0.03;
+alpha_y = 0.3;
+num_iters_x = 600;
+num_iters_y = 1000;
 
 % Init Theta and Run Gradient Descent 
 fprintf('Running Gradient Descent \n');
-theta_x = zeros(2, 1);
-[theta_x, J_history_x] = gradientDescent(X_for_x_axis, Y_for_x_axis, theta_x, alpha, num_iters);
-theta_y = zeros(2, 1);
-[theta_y, J_history_y] = gradientDescent(X_for_y_axis, Y_for_y_axis, theta_y, alpha, num_iters);
+theta_x = zeros(size(X_for_y_axis,2), 1);
+[theta_x, J_history_x] = gradientDescent(X_for_x_axis, Y_for_x_axis, theta_x, alpha_x, num_iters_x);
+theta_y = zeros(size(X_for_y_axis,2), 1);
+[theta_y, J_history_y] = gradientDescent(X_for_y_axis, Y_for_y_axis, theta_y, alpha_y, num_iters_y);
 
 % Plot the convergence graphs
 figure();
@@ -45,6 +46,22 @@ subplot(1,2,2)
 plot(1:numel(J_history_y), J_history_y, '-b', 'LineWidth', 2);
 xlabel('Number of iterations');
 ylabel('Cost Jy');
+
+% Plot Cost Contour for nearby theta values
+if size(theta_x,2 == 2)
+    figure();
+    subplot(1,2,1)
+    [theta1, theta2, costs] = displayThetaNeighbours(theta_x, X_for_x_axis, Y_for_x_axis, 100, 0.5, 100, 0.5);
+    contourf(theta1, theta2, costs);
+    xlabel('theta1x');
+    ylabel('theta2x');
+
+    subplot(1,2,2)
+    [theta1, theta2, costs] = displayThetaNeighbours(theta_y, X_for_y_axis, Y_for_y_axis, 100, 0.5, 100, 0.5);
+    contourf(theta1, theta2, costs);
+    xlabel('theta1y');
+    ylabel('theta2y');
+end
 
 % Display Result
 fprintf('Learnt PID values for X axis: \n');
